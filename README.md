@@ -1,1 +1,1 @@
-Repozytorium stworzone do budowania testów automatycznych dla Droplo
+Repo created for droplo automated tests

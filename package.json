@@ -1,14 +1,19 @@
 {
   "name": "droplo-automated-tests",
   "version": "1.0.0",
-  "description": "Repozytorium stworzone do budowania testów automatycznych dla Droplo",
+  "description": "Repo created for droplo automated tests",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "format": "npx prettier --write .",
+    "test": "npx playwright test",
+    "show-report": "npx playwright show-report"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.44.1",
-    "@types/node": "^20.14.2"
+    "@types/node": "^20.14.2",
+    "prettier": "^3.3.2"
   }
 }
