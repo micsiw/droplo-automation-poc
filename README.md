@@ -1,0 +1,1 @@
+Repozytorium stworzone do budowania testów automatycznych dla Droplo
