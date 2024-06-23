@@ -1,0 +1,8 @@
+{
+  "accounts": [
+    {
+      "username": "automated+login@test.com",
+      "password": "test1234"
+    }
+  ]
+}
