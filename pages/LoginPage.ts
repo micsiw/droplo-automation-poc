@@ -7,18 +7,20 @@ export class LoginPage {
   readonly loginButton: Locator;
   readonly registerSupplierButton: Locator;
   readonly registerRetailerButton: Locator;
+  readonly inputErrorMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.emailInput = page.locator("input#username");
     this.passwordInput = page.locator("input#password");
-    this.loginButton = page.locator('input[type="submit"]#kc-login');
+    this.loginButton = page.locator("input[type='submit']#kc-login");
     this.registerSupplierButton = page.locator(
       "//div[@onclick=\"redirectToRegister('supplier')\"]"
     );
     this.registerRetailerButton = page.locator(
       "//div[@onclick=\"redirectToRegister('retailer')\"]"
     );
+    this.inputErrorMessage = page.locator("//span[@id='input-error']");
   }
 
   async goto() {
