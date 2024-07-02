@@ -20,11 +20,7 @@ export class LoginPage {
     this.registerRetailerButton = page.locator(
       "//div[@onclick=\"redirectToRegister('retailer')\"]"
     );
-    this.inputErrorMessage = page.locator("//span[@id='input-error']");
-  }
-
-  async goto() {
-    await this.page.goto("");
+    this.inputErrorMessage = page.locator("span#input-error");
   }
 
   async login(username: string, password: string) {

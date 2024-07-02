@@ -13,7 +13,7 @@ test.describe("User authentication tests", () => {
     await page.goto("");
   });
 
-  test("should successfully log in with valid credentials", async () => {
+  test("should successfully log in retailer with valid credentials", async () => {
     await loginPage.login(
       credentials.accounts[0].username,
       credentials.accounts[0].password
