@@ -1,0 +1,9 @@
+{
+  "accounts": [
+    {
+      "//comment": "Valid credentials for automated login test [0]",
+      "username": "automated+login@test.com",
+      "password": "test1234"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+import { expect, test } from "../../fixtures/authFixtures";
+import { LoginPage } from "../../pages/LoginPage";
+import { HomePage } from "../../pages/RetailerHomePage";
+import { RetailerSettingsPage } from "../../pages/RetailerSettingsPage";
+
+test.describe("Account deletion tests", () => {
+  let homePage: HomePage;
+  let loginPage: LoginPage;
+  let retailerSettingsPage: RetailerSettingsPage;
+
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    homePage = new HomePage(page);
+    retailerSettingsPage = new RetailerSettingsPage(page);
+    await page.goto("");
+  });
+
+  test("should successfully delete retailer account", async ({
+    page,
+    testRetailer,
+  }) => {
+    await loginPage.login(testRetailer.email, testRetailer.password);
+    await expect(homePage.logoutButton).toBeVisible();
+    await homePage.settingsButton.click();
+    await retailerSettingsPage.deleteAccount();
+    await expect(page).toHaveURL("/account-deleted");
+  });
+});
