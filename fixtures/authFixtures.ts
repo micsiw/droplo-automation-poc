@@ -11,12 +11,7 @@ type AuthFixtures = {
 
 export const test = base.extend<AuthFixtures>({
   testRetailer: async ({}, use) => {
-    const testRetailer = {
-      phone: generatePolishMobileNumber(),
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-    };
-    await use(testRetailer);
+    await use(testRetailerData);
   },
 });
 
@@ -40,4 +35,11 @@ const generatePolishMobileNumber = () => {
   const prefix = faker.helpers.arrayElement(prefixes);
   const rest = faker.string.numeric(7);
   return prefix + rest;
+};
+
+//Data below is generated only once per test to share credentials if needed
+const testRetailerData: AuthFixtures["testRetailer"] = {
+  phone: generatePolishMobileNumber(),
+  email: faker.internet.email(),
+  password: faker.internet.password(),
 };

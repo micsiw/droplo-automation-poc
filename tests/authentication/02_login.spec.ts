@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import credentials from "../../fixtures/test-data.json";
-import { HomePage } from "../../pages/HomePage";
 import { LoginPage } from "../../pages/LoginPage";
+import { HomePage } from "../../pages/RetailerHomePage";
 
 test.describe("User authentication tests", () => {
   let homePage: HomePage;

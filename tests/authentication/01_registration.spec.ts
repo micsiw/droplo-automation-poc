@@ -1,6 +1,6 @@
 import { expect, test } from "../../fixtures/authFixtures";
-import { HomePage } from "../../pages/HomePage";
 import { LoginPage } from "../../pages/LoginPage";
+import { HomePage } from "../../pages/RetailerHomePage";
 import { RetailerOnboardingPage } from "../../pages/RetailerOnboardingPage";
 import { RetailerRegistrationPage } from "../../pages/RetailerRegistrationPage";
 
