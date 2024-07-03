@@ -37,7 +37,7 @@ const generatePolishMobileNumber = () => {
   return prefix + rest;
 };
 
-//Data below is generated only once per test to share credentials if needed
+//Data below is generated only once per whole test run (to share credentials if needed)
 const testRetailerData: AuthFixtures["testRetailer"] = {
   phone: generatePolishMobileNumber(),
   email: faker.internet.email(),
