@@ -1,16 +1,16 @@
 import { expect, test } from "../../fixtures/authFixtures";
 import { LoginPage } from "../../pages/LoginPage";
-import { HomePage } from "../../pages/RetailerHomePage";
+import { RetailerHomePage } from "../../pages/RetailerHomePage";
 import { RetailerSettingsPage } from "../../pages/RetailerSettingsPage";
 
 test.describe("Account deletion tests", () => {
-  let homePage: HomePage;
+  let homePage: RetailerHomePage;
   let loginPage: LoginPage;
   let retailerSettingsPage: RetailerSettingsPage;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
-    homePage = new HomePage(page);
+    homePage = new RetailerHomePage(page);
     retailerSettingsPage = new RetailerSettingsPage(page);
     await page.goto("");
   });

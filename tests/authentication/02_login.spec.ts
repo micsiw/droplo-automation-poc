@@ -1,15 +1,15 @@
 import { expect, test } from "@playwright/test";
 import credentials from "../../fixtures/test-data.json";
 import { LoginPage } from "../../pages/LoginPage";
-import { HomePage } from "../../pages/RetailerHomePage";
+import { RetailerHomePage } from "../../pages/RetailerHomePage";
 
 test.describe("User authentication tests", () => {
-  let homePage: HomePage;
+  let homePage: RetailerHomePage;
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
-    homePage = new HomePage(page);
+    homePage = new RetailerHomePage(page);
     await page.goto("");
   });
 

@@ -5,7 +5,7 @@ export default defineConfig({
   fullyParallel: true,
   reporter: [["html"], ["list"]],
   use: {
-    trace: "on-first-retry",
+    trace: "retain-on-failure",
     baseURL: "https://platform.droplo.eu",
   },
 
