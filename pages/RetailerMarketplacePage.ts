@@ -12,6 +12,7 @@ export class RetailerMarketplacePage {
 
   constructor(page: Page) {
     this.page = page;
+    //locator below is not unique, but since button id is generated randomly we are using this locator until better option occurs
     this.redcartIntegrationInstallButton = page.locator(
       "div:nth-child(4) > .pb-7 > .card > .p-5 > div:nth-child(2) > .d-flex > .btn-light-primary"
     );

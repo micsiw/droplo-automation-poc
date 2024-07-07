@@ -1,6 +1,6 @@
 import { expect, test } from "../../fixtures/authFixtures";
 import { LoginPage } from "../../pages/LoginPage";
-import { HomePage } from "../../pages/RetailerHomePage";
+import { RetailerHomePage } from "../../pages/RetailerHomePage";
 import { RetailerOnboardingPage } from "../../pages/RetailerOnboardingPage";
 import { RetailerRegistrationPage } from "../../pages/RetailerRegistrationPage";
 
@@ -8,11 +8,11 @@ test.describe("Account creation tests", () => {
   let retailerRegistrationPage: RetailerRegistrationPage;
   let retailerOnboardingPage: RetailerOnboardingPage;
   let loginPage: LoginPage;
-  let homePage: HomePage;
+  let homePage: RetailerHomePage;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
-    homePage = new HomePage(page);
+    homePage = new RetailerHomePage(page);
     retailerRegistrationPage = new RetailerRegistrationPage(page);
     retailerOnboardingPage = new RetailerOnboardingPage(page);
     await page.goto("");
