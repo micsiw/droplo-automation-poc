@@ -18,7 +18,8 @@ test.describe("Account creation tests", () => {
     await page.goto("");
   });
 
-  test("should successfully create retailer account with valid credentials", async ({
+  //skip dopoki nie ogarniemy obejscia CAPTCHA
+  test.skip("should successfully create retailer account with valid credentials", async ({
     testRetailer,
   }) => {
     await loginPage.registerRetailerButton.click();

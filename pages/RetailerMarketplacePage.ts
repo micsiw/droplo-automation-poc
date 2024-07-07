@@ -8,11 +8,11 @@ export class RetailerMarketplacePage {
   readonly integrationDropdownButton: Locator;
   readonly openIntegrationButton: Locator;
   readonly deleteIntegrationButton: Locator;
+  readonly deleteIntegrationConfirmationButton: Locator;
   readonly tokenInput: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    //locator below is not unique, but since button id is generated randomly we are using this locator until better option occurs
     this.redcartIntegrationInstallButton = page.locator(
       "div:nth-child(4) > .pb-7 > .card > .p-5 > div:nth-child(2) > .d-flex > .btn-light-primary"
     );
@@ -30,6 +30,9 @@ export class RetailerMarketplacePage {
     this.deleteIntegrationButton = page.getByRole("button", {
       name: "Remove integration",
     });
+    this.deleteIntegrationConfirmationButton = page.getByRole("button", {
+      name: "Delete",
+    });
     this.tokenInput = page
       .frameLocator("iframe[title='app-frame']")
       .locator("input[name='token']");
@@ -44,5 +47,11 @@ export class RetailerMarketplacePage {
   async openIntegration() {
     await this.integrationDropdownButton.click();
     await this.openIntegrationButton.click();
+  }
+
+  async deleteIntegration() {
+    await this.integrationDropdownButton.click();
+    await this.deleteIntegrationButton.click();
+    await this.deleteIntegrationConfirmationButton.click();
   }
 }

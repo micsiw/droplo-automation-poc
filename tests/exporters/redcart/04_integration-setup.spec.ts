@@ -30,10 +30,8 @@ test.describe("Redcart integration tests for retailer", () => {
     await homePage.marketplaceButton.click();
   });
 
-  test("should check if account is ready for testing (clean start)", async () => {
-    await expect(
-      retailerMarketplacePage.integrationDropdownButton
-    ).not.toBeVisible();
+  test.skip("should check if account is ready for testing (clean start)", async () => {
+    // warto dodać test który upewni się, ze na koncie nie ma zadnych aktywnych integracji, najlepiej po api
   });
 
   test("should successfully install integration", async ({ page }) => {

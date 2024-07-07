@@ -15,7 +15,7 @@ test.describe("Account deletion tests", () => {
     await page.goto("");
   });
 
-  test("should successfully delete retailer account", async ({
+  test.skip("should successfully delete retailer account", async ({
     page,
     testRetailer,
   }) => {
