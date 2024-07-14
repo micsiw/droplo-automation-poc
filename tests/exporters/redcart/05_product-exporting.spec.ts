@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import dotenv from "dotenv";
+import { redcartApi } from "../../../fixtures/redcartFixtures";
 import credentials from "../../../fixtures/test-data.json";
 import { ExporterSettingsPage } from "../../../pages/ExporterSettingsPage";
 import { LoginPage } from "../../../pages/LoginPage";
@@ -7,14 +7,14 @@ import { RetailerHomePage } from "../../../pages/RetailerHomePage";
 import { RetailerMarketplacePage } from "../../../pages/RetailerMarketplacePage";
 import { RetailerMyProductsPage } from "../../../pages/RetailerMyProductsPage";
 
-dotenv.config();
-
 test.describe("Exporting product to Redcart sales channel tests", () => {
   let homePage: RetailerHomePage;
   let loginPage: LoginPage;
   let retailerMarketplacePage: RetailerMarketplacePage;
   let exporterSettingsPage: ExporterSettingsPage;
   let retailerMyProductsPage: RetailerMyProductsPage;
+
+  const productName = "Some example product added by cypress: 1680257521361";
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
@@ -59,8 +59,32 @@ test.describe("Exporting product to Redcart sales channel tests", () => {
     await homePage.myProductsButton.click();
     await retailerMyProductsPage.sendItem(
       "Redcart - automated test",
-      "Rower Speedy Bonzo"
+      productName
     );
     await expect(retailerMyProductsPage.redcartExporterLabel).toBeVisible();
+  });
+
+  test("sending api request to redcart channel to confirm that product was exported successfully", async ({
+    request,
+  }) => {
+    const redcartApiClient = redcartApi(request);
+
+    const response = await redcartApiClient.sendRequest("products", "select", [
+      {
+        products_name: productName,
+        quantity: 20,
+      },
+    ]);
+
+    expect(response).toHaveProperty("count", 1);
+    expect(response).toHaveProperty("products");
+
+    const product = response.products.find(
+      (prod: any) => prod.products_name === productName
+    );
+
+    expect(product).toBeDefined();
+    expect(product.products_name).toBe(productName);
+    expect(product.quantity_all).toBe("20");
   });
 });

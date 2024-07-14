@@ -15,8 +15,6 @@ export const test = base.extend<AuthFixtures>({
   },
 });
 
-export { expect } from "@playwright/test";
-
 const generatePolishMobileNumber = () => {
   const prefixes = [
     "50",

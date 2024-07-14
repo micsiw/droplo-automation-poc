@@ -11,7 +11,9 @@ export class RetailerMyProductsPage {
   constructor(page: Page) {
     this.page = page;
     this.searchBar = page.getByPlaceholder("Search by name or EAN");
-    this.itemActionDropdown = page.locator(".dropdown");
+    this.itemActionDropdown = page.locator(
+      "button[type='button'][aria-expanded='false'].dropdown-toggle"
+    );
     this.addToChannelsButton = page.getByRole("button", {
       name: "Add to sales channels",
     });
@@ -20,13 +22,15 @@ export class RetailerMyProductsPage {
   }
 
   async sendItem(channelName: string, itemName: string) {
-    await this.searchBar.fill(itemName);
-    await this.itemActionDropdown.click();
-    await this.addToChannelsButton.click();
     const channelLabel = this.page
       .locator("div")
       .filter({ hasText: channelName })
       .nth(1);
+
+    await this.searchBar.fill(itemName);
+    await this.itemActionDropdown.click();
+    await this.addToChannelsButton.waitFor({ state: "attached" });
+    await this.addToChannelsButton.click();
     await channelLabel.click();
     await this.addProductsButton.click();
   }
