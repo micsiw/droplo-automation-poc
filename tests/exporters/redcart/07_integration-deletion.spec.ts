@@ -4,7 +4,7 @@ import { LoginPage } from "../../../pages/LoginPage";
 import { RetailerHomePage } from "../../../pages/RetailerHomePage";
 import { RetailerMarketplacePage } from "../../../pages/RetailerMarketplacePage";
 
-test.describe("Redcart integration tests for retailer", () => {
+test.describe("Redcart integration deletion tests for retailer", () => {
   let homePage: RetailerHomePage;
   let loginPage: LoginPage;
   let retailerMarketplacePage: RetailerMarketplacePage;
@@ -28,7 +28,7 @@ test.describe("Redcart integration tests for retailer", () => {
     await retailerMarketplacePage.deleteIntegration();
   });
 
-  test.skip("should verify that account have no active integrations", async () => {
+  test.skip("api call should verify that account have no active integrations", async () => {
     //tutaj zapytanie po api czy konto ma zainstalowane aplikacje
   });
 });

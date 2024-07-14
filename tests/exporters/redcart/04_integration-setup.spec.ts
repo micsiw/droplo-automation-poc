@@ -8,7 +8,7 @@ import { RetailerMarketplacePage } from "../../../pages/RetailerMarketplacePage"
 
 dotenv.config();
 
-test.describe("Redcart integration tests for retailer", () => {
+test.describe("Redcart integration configuration tests for retailer", () => {
   let homePage: RetailerHomePage;
   let loginPage: LoginPage;
   let retailerMarketplacePage: RetailerMarketplacePage;

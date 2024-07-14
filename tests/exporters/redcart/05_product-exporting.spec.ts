@@ -7,7 +7,7 @@ import { RetailerHomePage } from "../../../pages/RetailerHomePage";
 import { RetailerMarketplacePage } from "../../../pages/RetailerMarketplacePage";
 import { RetailerMyProductsPage } from "../../../pages/RetailerMyProductsPage";
 
-test.describe("Exporting product to Redcart sales channel tests", () => {
+test.describe("Exporting product to Redcart sales channel tests for retailer", () => {
   let homePage: RetailerHomePage;
   let loginPage: LoginPage;
   let retailerMarketplacePage: RetailerMarketplacePage;
@@ -55,12 +55,13 @@ test.describe("Exporting product to Redcart sales channel tests", () => {
     await expect(selectedCategory).toBeVisible();
   });
 
-  test("should successfully export product from my-products section", async () => {
+  test("should successfully export product to Redcart channel using my-products section", async () => {
     await homePage.myProductsButton.click();
     await retailerMyProductsPage.sendItem(
       "Redcart - automated test",
       productName
     );
+    await expect(retailerMyProductsPage.exportSuccessToast).toBeVisible();
     await expect(retailerMyProductsPage.redcartExporterLabel).toBeVisible();
   });
 
