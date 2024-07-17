@@ -1,34 +1,20 @@
-import { expect, test } from "@playwright/test";
-import credentials from "../../../fixtures/test-data.json";
-import { LoginPage } from "../../../pages/LoginPage";
-import { RetailerHomePage } from "../../../pages/RetailerHomePage";
-import { RetailerMarketplacePage } from "../../../pages/RetailerMarketplacePage";
+import { test } from "../../../fixtures/redcartFixtures";
 
 test.describe("Redcart integration deletion tests for retailer", () => {
-  let homePage: RetailerHomePage;
-  let loginPage: LoginPage;
-  let retailerMarketplacePage: RetailerMarketplacePage;
-
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    homePage = new RetailerHomePage(page);
-    retailerMarketplacePage = new RetailerMarketplacePage(page);
-
-    await page.goto("");
-    await loginPage.login(
-      credentials.accounts[1].username,
-      credentials.accounts[1].password
-    );
-    await expect(homePage.logoutButton).toBeVisible();
+  test.beforeEach(async ({ page, performLogin }) => {
+    await performLogin(page);
   });
 
-  test("should successfully delete integration", async ({ page }) => {
-    await homePage.marketplaceButton.click();
-    await expect(page.getByText("Redcart - automated test")).toBeVisible();
-    await retailerMarketplacePage.deleteIntegration();
+  test("should successfully delete integration", async ({ redcartContext }) => {
+    await redcartContext.deleteRedcartIntegration();
   });
 
   test.skip("api call should verify that account have no active integrations", async () => {
     //tutaj zapytanie po api czy konto ma zainstalowane aplikacje
   });
 });
+
+//3. Posprzatanie authentication
+//4. Commit ten shit
+//5. Rozkmina jak sie mozemy sie autoryzowac i strzelac requesty do api droplo,
+//   obstawiam, ze sciagamy bearer token po logowaniu i zapisujemy go gdzies

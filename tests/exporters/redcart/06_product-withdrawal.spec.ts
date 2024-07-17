@@ -1,50 +1,29 @@
-import { expect, test } from "@playwright/test";
-import { redcartApi } from "../../../fixtures/redcartFixtures";
-import credentials from "../../../fixtures/test-data.json";
-import { LoginPage } from "../../../pages/LoginPage";
-import { RetailerHomePage } from "../../../pages/RetailerHomePage";
-import { RetailerMyProductsPage } from "../../../pages/RetailerMyProductsPage";
+import { expect, test } from "../../../fixtures/redcartFixtures";
 
 test.describe("Withdrawing product from Redcart sales channel tests for retailer", () => {
-  let homePage: RetailerHomePage;
-  let loginPage: LoginPage;
-  let retailerMyProductsPage: RetailerMyProductsPage;
-
-  const productName = "Some example product added by cypress: 1680257521361";
-
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    homePage = new RetailerHomePage(page);
-    retailerMyProductsPage = new RetailerMyProductsPage(page);
-
-    await page.goto("");
-    await loginPage.login(
-      credentials.accounts[1].username,
-      credentials.accounts[1].password
-    );
-    await expect(homePage.logoutButton).toBeVisible();
+  test.beforeEach(async ({ page, performLogin }) => {
+    await performLogin(page);
   });
 
-  test("should successfully withdraw product from Redcart channel using my-products section", async () => {
-    await homePage.myProductsButton.click();
-    await retailerMyProductsPage.withdrawItem(
-      "Redcart - automated test",
-      productName
+  test("should successfully withdraw product from Redcart channel using my-products section", async ({
+    testData,
+    redcartContext,
+  }) => {
+    await redcartContext.homePage.myProductsButton.click();
+    await redcartContext.retailerMyProductsPage.withdrawItem(
+      testData.channelName,
+      testData.productName
     );
-    await expect(retailerMyProductsPage.withdrawSuccessToast).toBeVisible();
+    await expect(
+      redcartContext.retailerMyProductsPage.withdrawSuccessToast
+    ).toBeVisible();
   });
 
   test("sending api request to redcart channel to confirm that product was withdrawn successfully", async ({
-    request,
+    redcartApi,
+    testData,
   }) => {
-    const redcartApiClient = redcartApi(request);
-
-    const response = await redcartApiClient.sendRequest("products", "select", [
-      {
-        products_name: productName,
-      },
-    ]);
-
-    expect(response).toHaveProperty("count", 0);
+    const result = await redcartApi.getProduct(testData.productName);
+    expect(result.response.count).toBe(0);
   });
 });

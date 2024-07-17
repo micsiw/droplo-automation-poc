@@ -9,6 +9,7 @@ export class RetailerMarketplacePage {
   readonly openIntegrationButton: Locator;
   readonly deleteIntegrationButton: Locator;
   readonly deleteIntegrationConfirmationButton: Locator;
+  readonly deleteIntegrationSuccessToast: Locator;
   readonly tokenInput: Locator;
 
   constructor(page: Page) {
@@ -33,6 +34,9 @@ export class RetailerMarketplacePage {
     this.deleteIntegrationConfirmationButton = page.getByRole("button", {
       name: "Delete",
     });
+    this.deleteIntegrationSuccessToast = page.getByText(
+      "Channel deletion successful"
+    );
     this.tokenInput = page
       .frameLocator("iframe[title='app-frame']")
       .locator("input[name='token']");

@@ -34,30 +34,88 @@ export class RetailerMyProductsPage {
   }
 
   async sendItem(channelName: string, itemName: string) {
+    const maxAttempts = 3;
+    const retryDelay = 1000;
+
     const channelLabel = this.page
       .locator("div")
       .filter({ hasText: channelName })
       .nth(1);
 
     await this.searchBar.fill(itemName);
-    await this.itemActionDropdown.click();
-    await this.addToChannelsButton.waitFor({ state: "attached" });
-    await this.addToChannelsButton.click();
-    await channelLabel.click();
-    await this.addProductsButton.click();
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        await this.itemActionDropdown.waitFor({
+          state: "attached",
+          timeout: 3000,
+        });
+        await this.itemActionDropdown.click();
+        await this.addToChannelsButton.waitFor({
+          state: "visible",
+          timeout: 3000,
+        });
+        await this.addToChannelsButton.click();
+        await channelLabel.waitFor({ state: "visible", timeout: 3000 });
+        await channelLabel.click();
+        await this.addProductsButton.click();
+
+        break;
+      } catch (error) {
+        console.log(
+          `Attempt: ${attempt + 1} to add product failed, retrying...`
+        );
+        if (attempt === maxAttempts - 1) {
+          throw new Error(
+            `Failed to add item after ${maxAttempts} attempts: ${error}`
+          );
+        }
+
+        await this.page.waitForTimeout(retryDelay);
+      }
+    }
   }
 
   async withdrawItem(channelName: string, itemName: string) {
+    const maxAttempts = 3;
+    const retryDelay = 1000;
+
     const channelLabel = this.page
       .locator("div")
       .filter({ hasText: channelName })
       .nth(1);
 
     await this.searchBar.fill(itemName);
-    await this.itemActionDropdown.click();
-    await this.removeFromChannelsButton.waitFor({ state: "attached" });
-    await this.removeFromChannelsButton.click();
-    await channelLabel.click();
-    await this.removeProductsButton.click();
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        await this.itemActionDropdown.waitFor({
+          state: "attached",
+          timeout: 3000,
+        });
+        await this.itemActionDropdown.click();
+        await this.removeFromChannelsButton.waitFor({
+          state: "visible",
+          timeout: 3000,
+        });
+        await this.removeFromChannelsButton.click();
+        await channelLabel.waitFor({ state: "visible", timeout: 3000 });
+        await channelLabel.click();
+        await this.removeProductsButton.click();
+
+        break;
+      } catch (error) {
+        console.log(
+          `Attempt: ${attempt + 1} to withdraw product failed, retrying...`
+        );
+        if (attempt === maxAttempts - 1) {
+          throw new Error(
+            `Failed to withdraw item after ${maxAttempts} attempts: ${error}`
+          );
+        }
+
+        await this.page.waitForTimeout(retryDelay);
+      }
+    }
   }
 }
