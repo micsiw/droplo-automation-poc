@@ -35,7 +35,7 @@ export class RetailerMyProductsPage {
 
   async sendItem(channelName: string, itemName: string) {
     const maxAttempts = 3;
-    const retryDelay = 1000;
+    const retryDelay = 500;
 
     const channelLabel = this.page
       .locator("div")
@@ -46,19 +46,33 @@ export class RetailerMyProductsPage {
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       try {
-        await this.itemActionDropdown.waitFor({
-          state: "attached",
-          timeout: 3000,
-        });
-        await this.itemActionDropdown.click();
-        await this.addToChannelsButton.waitFor({
-          state: "visible",
-          timeout: 3000,
-        });
-        await this.addToChannelsButton.click();
-        await channelLabel.waitFor({ state: "visible", timeout: 3000 });
-        await channelLabel.click();
-        await this.addProductsButton.click();
+        await Promise.race([
+          this.itemActionDropdown.click(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Timeout")), 2500)
+          ),
+        ]);
+
+        await Promise.race([
+          this.addToChannelsButton.click(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Timeout")), 2500)
+          ),
+        ]);
+
+        await Promise.race([
+          channelLabel.click(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Timeout")), 2500)
+          ),
+        ]);
+
+        await Promise.race([
+          this.addProductsButton.click(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Timeout")), 2500)
+          ),
+        ]);
 
         break;
       } catch (error) {
@@ -78,7 +92,7 @@ export class RetailerMyProductsPage {
 
   async withdrawItem(channelName: string, itemName: string) {
     const maxAttempts = 3;
-    const retryDelay = 1000;
+    const retryDelay = 500;
 
     const channelLabel = this.page
       .locator("div")
@@ -89,19 +103,33 @@ export class RetailerMyProductsPage {
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       try {
-        await this.itemActionDropdown.waitFor({
-          state: "attached",
-          timeout: 3000,
-        });
-        await this.itemActionDropdown.click();
-        await this.removeFromChannelsButton.waitFor({
-          state: "visible",
-          timeout: 3000,
-        });
-        await this.removeFromChannelsButton.click();
-        await channelLabel.waitFor({ state: "visible", timeout: 3000 });
-        await channelLabel.click();
-        await this.removeProductsButton.click();
+        await Promise.race([
+          this.itemActionDropdown.click(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Timeout")), 2500)
+          ),
+        ]);
+
+        await Promise.race([
+          this.removeFromChannelsButton.click(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Timeout")), 2500)
+          ),
+        ]);
+
+        await Promise.race([
+          channelLabel.click(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Timeout")), 2500)
+          ),
+        ]);
+
+        await Promise.race([
+          this.removeProductsButton.click(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Timeout")), 2500)
+          ),
+        ]);
 
         break;
       } catch (error) {
