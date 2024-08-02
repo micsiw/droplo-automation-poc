@@ -13,8 +13,3 @@ test.describe("Redcart integration deletion tests for retailer", () => {
     //tutaj zapytanie po api czy konto ma zainstalowane aplikacje
   });
 });
-
-//3. Posprzatanie authentication
-//4. Commit ten shit
-//5. Rozkmina jak sie mozemy sie autoryzowac i strzelac requesty do api droplo,
-//   obstawiam, ze sciagamy bearer token po logowaniu i zapisujemy go gdzies
